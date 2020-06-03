@@ -1,0 +1,23 @@
+body {
+  padding: 0;
+  margin: auto;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.navbar {
+  height: 9vh;
+  margin-bottom: 3vh;
+}
+
+#feed {
+  text-align: center;
+}
+
+#submitPost {
+  width: 100%;
+}
