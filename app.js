@@ -6,7 +6,7 @@ var logger = require('morgan');
 var helmet = require('helmet');
 var passport = require('passport');
 var mongoose = require('mongoose');
-var GithubStrategy = require('passport-github').Strategy;
+var GitHubStrategy = require('passport-github').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 require('dotenv').config();
 
