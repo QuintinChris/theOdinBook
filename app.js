@@ -26,7 +26,7 @@ db.on('error', console.error.bind(console, 'mongo connection error'));
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: "https://127.0.0.1:3000/auth/facebook/callback"
+  callbackURL: "https://ancient-tor-90543.herokuapp.com/auth/facebook/callback"
 },
   function (accessToken, refreshToken, profile, done) {
     User.findOrCreate(User, function (err, user) {
@@ -36,7 +36,26 @@ passport.use(new FacebookStrategy({
   }
 ));
 
+// Set up Github login
+passport.use(new GitHubStrategy({
+  clientID: GITHUB_CLIENT_ID,
+  clientSecret: GITHUB_CLIENT_SECRET,
+  callbackURL: "http://ancient-tor-90543.herokuapp.com/auth/github/callback"
+},
+  function (accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ githubId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
 
+passport.serializeUser(function (user, cb) {
+  cb(null, user);
+});
+
+passport.deserializeUser(function (obj, cb) {
+  cb(null, obj);
+});
 
 var app = express();
 
@@ -49,6 +68,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
@@ -70,8 +97,16 @@ app.get('/auth/facebook/callback',
   passport.authenticate('facebook', {
     successRedirect: '/',
     failureRedirect: '/login'
-  }));
+  })
+);
 
+app.get('/auth/github', passport.authenticate('github'));
+app.get('/auth/github/callback',
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
 
 
 
