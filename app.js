@@ -22,13 +22,19 @@ mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'mongo connection error'));
 
-
-
-
-
-
-
-
+// Set up facebook login
+passport.use(new FacebookStrategy({
+  clientID: process.env.FACEBOOK_APP_ID,
+  clientSecret: process.env.FACEBOOK_APP_SECRET,
+  callbackURL: "https://127.0.0.1:3000/auth/facebook/callback"
+},
+  function (accessToken, refreshToken, profile, done) {
+    User.findOrCreate(User, function (err, user) {
+      if (err) { return done(err); }
+      done(null, user);
+    });
+  }
+));
 
 
 
@@ -51,8 +57,21 @@ app.use('/posts/:id/comments', commentsRouter);
 
 /* GET home page. */
 app.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'OdinBook' });
 });
+
+// GET login
+app.get("/login", (req, res) => res.render("login", { user: req.user }));
+app.get("/login/github", passport.authenticate("github"));
+
+// Facebook login
+app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+  }));
+
 
 
 

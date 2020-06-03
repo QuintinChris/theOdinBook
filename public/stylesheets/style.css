@@ -21,3 +21,17 @@ a {
 #submitPost {
   width: 100%;
 }
+
+.homeProfilePic {
+  width: 100px;
+  height: 100px;
+  margin: auto;
+}
+
+.btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
