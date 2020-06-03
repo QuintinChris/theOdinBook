@@ -1,6 +1,6 @@
 **OdinBook**
 
-Facebook clone created for The Odin Project curriculum
+Facebook clone inspired by The Odin Project curriculum
 
 Steps: 
 - [X] Add models
@@ -14,16 +14,14 @@ Steps:
     - [X] Comment
     - [X] Friends
 - [X] Add routes
-- [ ] Add views
+- [X] Add views
     - [X] timeline
     - [X] profile
-    - [ ] friendlist
-    - [ ] friend request
-    - [ ] login
+    - [X] friendlist
+    - [X] friend request
+    - [X] login
 
--redo index.pug to just have profile preview on left, new form post below that, and timeline on right
-
-- [ ] Add form validation
+- [ ] Fix views to take actual user data
 - [ ] Add github/facebook login
 - [ ] Add bcrypt password encryption
 - [ ] Creating fake data using faker
