@@ -8,6 +8,7 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var GitHubStrategy = require('passport-github').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
+var seedDB = require('./seeds');
 require('dotenv').config();
 
 var indexRouter = require('./routes/index');
@@ -58,6 +59,7 @@ passport.deserializeUser(function (obj, cb) {
 });
 
 var app = express();
+seedDB();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
