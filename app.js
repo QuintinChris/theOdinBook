@@ -82,7 +82,7 @@ app.get('/', function (req, res, next) {
 
 // GET login
 app.get("/login", (req, res) => res.render("login", { user: req.user }));
-app.get("/login/github", passport.authenticate("github"));
+//app.get("/login/github", passport.authenticate("github"));
 
 // Facebook login
 app.get('/auth/facebook', passport.authenticate('facebook'));
