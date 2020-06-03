@@ -38,8 +38,8 @@ passport.use(new FacebookStrategy({
 
 // Set up Github login
 passport.use(new GitHubStrategy({
-  clientID: GITHUB_CLIENT_ID,
-  clientSecret: GITHUB_CLIENT_SECRET,
+  clientID: process.env.GITHUB_CLIENT_ID,
+  clientSecret: process.env.GITHUB_CLIENT_SECRET,
   callbackURL: "http://ancient-tor-90543.herokuapp.com/auth/github/callback"
 },
   function (accessToken, refreshToken, profile, cb) {
