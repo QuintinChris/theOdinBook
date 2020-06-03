@@ -1,7 +1,7 @@
 const faker = require("faker");
-const User = require("./models/user");
-const Post = require("./models/post");
-const Comment = require("./models/comment");
+const User = require("./models/Users");
+const Post = require("./models/Posts");
+const Comment = require("./models/Comments");
 
 // Creates 5 users with random name, image, post, and comment
 const seedDb = (req, res, next) => {
